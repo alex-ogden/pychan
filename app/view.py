@@ -64,12 +64,12 @@ def get_boards():
     _ = [os.remove(file) for file in image_files]
 
     for thread in json_data[page_index]["threads"]:
-        tim = thread["tim"]
-        ext = thread["ext"]
-        if tim == 0:
+        tim = thread.get("tim", None)
+        if not tim:
             # Thread doesn't have a thumbnail, skip
             continue
-        
+        ext = thread["ext"]
+
         tn_download_url = f"{IMAGE_API_URL}/{required_board}/{tim}{ext}"
         image_path = f"{IMAGES_DIR}/{tim}{ext}"
 
@@ -88,15 +88,6 @@ def get_boards():
         next_page = required_page + 1
         previous_page = required_page - 1
     
-    # Build data for rendering the page
-    #page_data = {
-    #    "previous_page": previous_page,
-    #    "next_page": next_page,
-    #    "board_letter": required_board,
-    #    "page": required_page,
-    #    "threads": json_data[page_index]["threads"]
-    #}
-    
     # Render page
     return render_template(
         "showboard.html",
@@ -114,7 +105,7 @@ def get_thread():
     print(f"Required Board: {required_board}")
     print(f"Required Thread: {required_thread}")
 
-    thread_api_endpoint = f"{API_URL}/required_board/thread/{required_thread}"
+    thread_api_endpoint = f"{API_URL}/{required_board}/thread/{required_thread}.json"
 
     print(f"Requesting data from endpoint: {thread_api_endpoint}")
     try:
@@ -139,17 +130,32 @@ def get_thread():
     image_files = glob.glob(IMAGES_DIR+"/*")
     _ = [os.remove(file) for file in image_files]
 
-    for thread in json_data[page_index]["threads"]:
-        tim = thread["tim"]
-        ext = thread["ext"]
-        if tim == 0:
+    # Download images and fix various params
+    for idx,post in enumerate(json_data["posts"]):
+        tim = post.get("tim", None)
+        images = post.get("images", None)
+        if not images:
+            json_data["posts"][idx]["images"] = 0
+
+        if not tim:
             # Thread doesn't have a thumbnail, skip
+            json_data["posts"][idx]["tim"] = 0
             continue
+
+        ext = post["ext"]
         
         tn_download_url = f"{IMAGE_API_URL}/{required_board}/{tim}{ext}"
         image_path = f"{IMAGES_DIR}/{tim}{ext}"
 
         download_image(tn_download_url, image_path)
+    
+    # Render page
+    return render_template(
+        "showthread.html",
+        board_letter=required_board,
+        thread_no=required_thread,
+        posts=json_data["posts"]
+    )
 
 def is_valid_board(board):
     valid_boards = [
@@ -172,6 +178,7 @@ def is_valid_board(board):
 
 def download_image(tn_download_url, image_path):
     # Attempt to download the image
+    print(f"Attempting to download full-res image: {tn_download_url}")
     try:
         res = requests.get(tn_download_url)
         res.raise_for_status()

@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" type="text/css" href="showthread.css">
-    <link rel="manifest" href="manifest.json" />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='styles/showthread.css') }}">
+    <link rel="manifest" href="../static/manifest.json" />
     <!-- iOS support -->
     <link rel="apple-touch-icon" href="images/icons/icon-72x72.png" />
     <link rel="apple-touch-icon" href="images/icons/icon-96x96.png" />
@@ -13,39 +13,39 @@
     <link rel="apple-touch-icon" href="images/icons/icon-192x192.png" />
     <meta name="apple-mobile-web-app-status-bar" content="#BB86FC" />
     <meta name="theme-color" content="#BB86FC" />
-    <title>4chan /{{.BoardLetter}}/ - {{.ThreadNo}}</title>
+    <title>4chan /{{ required_board }}/ - {{ thread_no }}</title>
   </head>
   <body>
     <main>
     <header>
-      <h1>4Chan - /{{ .BoardLetter }}/ - {{ .ThreadNo }}</h1>
+      <h1>4Chan - /{{ required_board }}/ - {{ thread_no }}</h1>
     </header>
-      {{range .Posts}}
+      {% for item in posts %}
       <section>
-        <h4>{{.No}}</h4>
-        <p class="sub">{{.Sub}}</p>
-        {{ if (gt .Tim 0) }}
-          {{ if eq .Ext ".webm" }}
-            <video controls loop src="images/{{.Tim}}{{.Ext}}" id="{{.No}}" alt="Thread {{.No}} thumbnail">
+        <h4>{{ item.no }}</h4>
+        <p class="sub">{{ item.sub }}</p>
+        {% if item.tim > 0 %}
+          {% if item.ext == ".webm" %}
+            <video controls loop src="../static/images/{{ item.tim }}{{ item.ext }}" id="{{ item.no }}" alt="Thread {{ item.no }} thumbnail">
             </video>
-          {{ else }}
-            <img src=images/{{.Tim}}{{.Ext}} id="{{.No}}" alt="Thread {{.No}} thumbnail"/>
-          {{ end }}
-        {{ end }}
-        <div class="previewspan" id="{{.No}}-post-preview" style="display: none;">
-          <img id="{{.No}}-quoteimage" class="noshadowimg" src="//:0" />
+          {% else %}
+            <img src="../static/images/{{ item.tim }}{{ item.ext  }}" id="{{ item.no }}" alt="Thread {{ item.no }} thumbnail"/>
+          {% endif %}
+        {% endif %}
+        <div class="previewspan" id="{{ item.no }}-post-preview" style="display: none;">
+          <img id="{{ item.no }}-quoteimage" class="noshadowimg" src="//:0" />
           <br />
-          <p id="{{.No}}-quotepreview" style="display: none;"></p>
+          <p id="{{ item.no }}-quotepreview" style="display: none;"></p>
         </div>
-        <p id="{{.No}}-text">{{.Com}}</p>
-        {{ if gt .Images 0 }}
-          <p class="thread-info">Replies: {{.Replies}} / Images: {{.Images}}</p>
-        {{ else }}
-          <p class="thread-info">Replies: {{.Replies}} / Images: 0</p>
-        {{ end }}
-        <p class="thread-time">Time: {{.Time}}</p>
+        <p id="{{ item.no }}-text">{{ item.com }}</p>
+        {% if item.images > 0 %}
+          <p class="thread-info">Replies: {{ item.replies }} / Images: {{ item.images }}</p>
+        {% else %}
+          <p class="thread-info">Replies: {{ item.replies }} / Images: 0</p>
+        {% endif %}
+        <p class="thread-time">Time: {{ item.time }}</p>
       </section>
-      {{end}}
+      {% endfor %}
     </main>
     <script src="thread.js"></script>
   </body>
