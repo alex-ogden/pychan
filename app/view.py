@@ -6,10 +6,18 @@ import requests
 from app import app
 from flask import jsonify, render_template, request
 
-STATIC_DIR = "../static"
+STATIC_DIR = "app/static"
 IMAGES_DIR = STATIC_DIR + "/images"
 API_URL = "https://a.4cdn.org"
 IMAGE_API_URL = "https://i.4cdn.org"
+
+# Create images directory
+try:
+    os.mkdir(IMAGES_DIR)
+except FileExistsError as e:
+    print(f"Image directory: {IMAGES_DIR} already exists")
+except OSError as e:
+    raise Exception(f"Error creating image directory: {e}")
 
 @app.route("/", methods=["GET"])
 def index():
@@ -80,7 +88,68 @@ def get_boards():
         next_page = required_page + 1
         previous_page = required_page - 1
     
+    # Build data for rendering the page
+    #page_data = {
+    #    "previous_page": previous_page,
+    #    "next_page": next_page,
+    #    "board_letter": required_board,
+    #    "page": required_page,
+    #    "threads": json_data[page_index]["threads"]
+    #}
     
+    # Render page
+    return render_template(
+        "showboard.html",
+        previous_page=previous_page,
+        next_page=next_page,
+        board_letter=required_board,
+        page=required_page,
+        threads=json_data[page_index]["threads"]
+    )
+
+@app.route("/get_thread", methods=["GET"])
+def get_thread():
+    required_board = request.args["board"]
+    required_thread = int(request.args["thread"])
+    print(f"Required Board: {required_board}")
+    print(f"Required Thread: {required_thread}")
+
+    thread_api_endpoint = f"{API_URL}/required_board/thread/{required_thread}"
+
+    print(f"Requesting data from endpoint: {thread_api_endpoint}")
+    try:
+        res = requests.get(thread_api_endpoint)
+        res.raise_for_status()
+        print(f"Successful response from endpoint")
+    except requests.exceptions.RequestException as e:
+        print(f"An error occurred: {e}")
+    
+    if not res.status_code == 200:
+        print(f"HTTP response status code: {res.status_code}")
+        print(f"HTTP response reason: {res.reason}")
+        raise Exception(f"HTTP response from {thread_api_endpoint} was not 200")
+
+    # Load the response into a JSON object
+    try:
+        json_data = json.loads(res.text)
+    except json.decoder.JSONDecodeError as jde:
+        raise ValueError("JSON Decoding error occurred: {jde}")
+
+    # Remove all images from IMAGES_DIR
+    image_files = glob.glob(IMAGES_DIR+"/*")
+    _ = [os.remove(file) for file in image_files]
+
+    for thread in json_data[page_index]["threads"]:
+        tim = thread["tim"]
+        ext = thread["ext"]
+        if tim == 0:
+            # Thread doesn't have a thumbnail, skip
+            continue
+        
+        tn_download_url = f"{IMAGE_API_URL}/{required_board}/{tim}{ext}"
+        image_path = f"{IMAGES_DIR}/{tim}{ext}"
+
+        download_image(tn_download_url, image_path)
 
 def is_valid_board(board):
     valid_boards = [
@@ -116,5 +185,6 @@ def download_image(tn_download_url, image_path):
         raise Exception(f"HTTP response from {catalog_api_endpoint} was not 200")
 
     img_data = res.content
+
     with open(image_path, 'wb') as handler:
         handler.write(img_data)
