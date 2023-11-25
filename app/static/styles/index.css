@@ -1,72 +1,96 @@
 /* Set the font family and size for the whole page */
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 body {
-	font-family: 'Poppins', sans-serif;
-  font-size: 16px;
-  background-color: #121212;
-  color: #f5f5f5;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    background-color: #121212;
+    color: #f5f5f5;
+    margin: 0;
+    padding: 0;
 }
 
 /* Add some padding to the header and main section */
-header, main {
-  padding: 20px;
+header,
+main {
+    padding: 20px;
 }
 
 main h2 {
-  color: #f5f5f5;
-  font-size: 2rem;
+    color: #f5f5f5;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    text-align: center;
 }
 
 /* Style the header elements */
 header h1 {
-  margin: 0;
-  font-size: 3rem;
-  font-weight: bold;
-  color: #f5f5f5;
-  text-align: center;
-}
-
-header h3 {
-  margin: 10px 0 0;
-  font-size: 1.5rem;
-  font-weight: normal;
-  color: #f5f5f5;
-  text-align: center;
+    margin: 0;
+    font-size: 3rem;
+    font-weight: bold;
+    color: #f5f5f5;
+    text-align: center;
 }
 
 /* Style the board selection section */
 section {
-  margin: 20px 0;
+    margin: 20px 0;
 }
 
 section h4 {
-  margin: 0;
-  font-size: 1rem;
-  font-weight: bold;
-  color: #BB86FC;
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ff4081; /* Update to new style */
+    text-align: center;
 }
 
 ul {
-  text-align: center;
-  list-style: none;
-  padding: 0;
-  margin: 10px 0;
+    list-style: none;
+    padding: 0;
+    margin: 10px 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 li {
-  padding: 2px 0;
+    padding: 5px;
+    width: 100%;
 }
 
 li a {
-  display: block;
-  padding: 15px 0;
-  margin: 5px 0;
-  background-color: #242424;
-  color: #f5f5f5;
-  text-decoration: none;
-  transition: background-color 1s ease-in-out;
+    display: block;
+    padding: 15px 20px;
+    margin: 5px;
+    background-color: #292929; /* Update to new style */
+    color: #e0e0e0; /* Update to new style */
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
 }
 
 li a:hover {
-  background-color: rgba(187, 134, 252, 0.5);
+    background-color: #ff4081; /* Update to new style */
+    color: #121212; /* Update to new style */
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    header,
+    main {
+        padding: 10px;
+    }
+
+    main h2 {
+        font-size: 1.5rem;
+    }
+
+    section h4 {
+        font-size: 1.2rem;
+    }
+
+    li a {
+        padding: 12px 16px;
+        margin: 5px;
+    }
 }

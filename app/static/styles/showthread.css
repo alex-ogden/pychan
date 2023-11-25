@@ -1,90 +1,94 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 body {
-	font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', sans-serif;
     font-size: 16px;
     background-color: #121212;
     color: #f5f5f5;
-  }
+}
 
-  /* Add some padding to the header and main section */
-  header, main {
+/* Add some padding to the header and main section */
+header,
+main {
     padding: 5px;
     padding-top: 30px;
-  }
+}
 
-  img {
+img {
     display: inline;
     max-width: 50%;
     height: auto;
-  }
+}
 
-  video {
+video {
     object-fit: contain;
     overflow-clip-margin: content-box;
     overflow: clip;
-  }
+}
 
-  header h1 {
+header h1 {
     text-align: center;
     margin: 0;
     font-size: 2.5rem;
     font-weight: bold;
     color: #f5f5f5;
-  }
+}
 
-  h2 {
+h2 {
     margin: 0;
     font-size: 1.5rem;
     font-weight: bold;
-    color: #BB86FC;
+    color: #ff4081; /* Updated to new style */
     margin-bottom: 20px;
-  }
+}
 
-  section {
-    background-color: #242424;
+section {
+    background-color: #292929; /* Updated to new style */
     padding: 10px;
     margin-bottom: 20px;
     box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-    color: #f5f5f5
-  }
+    color: #f5f5f5;
+}
 
-  section h4 {
+section h4 {
     font-size: 1.5rem;
-  }
+    color: #ff4081; /* Updated to new style */
+}
 
-  a {
+a {
     color: #f5f5f5;
     text-decoration: none;
     transition: color 0.2s ease-in-out;
     font-weight: bold;
-  }
+}
 
-  a:hover {
+a:hover {
     color: #bb86fc;
-  }
+}
 
-  .thread-info, .thread-time {
+.thread-info,
+.thread-time {
     font-size: 14px;
     color: #f5f5f5;
     margin-top: 5px;
-  }
+}
 
-  .sub {
-    color: #bb86fc
-  }
+.sub {
+    color: #ff4081; /* Updated to new style */
+}
 
-  @media only screen and (max-width: 768px) {
+@media only screen and (max-width: 768px) {
     h1 {
-      font-size: 24px;
+        font-size: 24px;
     }
     h2 {
-      font-size: 20px;
+        font-size: 20px;
     }
     section {
-      font-size: 16px;
-      padding: 5px;
+        font-size: 16px;
+        padding: 5px;
     }
-    .thread-info, .thread-time {
-      font-size: 12px;
+    .thread-info,
+    .thread-time {
+        font-size: 12px;
     }
-  }
+}
