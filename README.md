@@ -13,7 +13,7 @@ PyChan addresses these issues by building in a mobile-first manner:
 [How to add a website to home screen on iOS and Android](https://techwiser.com/how-to-add-a-website-to-home-screen-on-ios-and-android/)
 
 ### Installation and Configuration
-Installation is purposefully very easy. It's recommended to use the included `docker-compose.yml` file to run the program, however running using Python is also possible.
+Installation is purposefully very easy. It's recommended to use the `build-and-run.sh` script to run the program, passing either `docker` or `local` as the first and only parameter. You can also use the the included `docker-compose.yml` file to run the program, however running using Python is also possible.
 
 Clone the repo and enter the PyChan directory within the repo:
 ```bash
