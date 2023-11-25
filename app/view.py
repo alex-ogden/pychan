@@ -2,9 +2,10 @@ import os
 import glob
 import json
 import requests
+import concurrent.futures
 
 from app import app
-from flask import jsonify, render_template, request
+from flask import jsonify, render_template, request, Markup
 
 STATIC_DIR = "app/static"
 IMAGES_DIR = STATIC_DIR + "/images"
@@ -63,17 +64,30 @@ def get_boards():
     image_files = glob.glob(IMAGES_DIR+"/*")
     _ = [os.remove(file) for file in image_files]
 
-    for thread in json_data[page_index]["threads"]:
-        tim = thread.get("tim", None)
-        if not tim:
-            # Thread doesn't have a thumbnail, skip
-            continue
-        ext = thread["ext"]
+    # Create ThreadPool with a number of worker threads
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        futures = []
+        for idx,thread in enumerate(json_data[page_index]["threads"]):
+            com = thread.get("com", None)
+            tim = thread.get("tim", None)
+            if com:
+                # Render html within comment to display
+                json_data[page_index]["threads"][idx]["com"] = Markup(com)
+            if not tim:
+                # Thread doesn't have a thumbnail, skip
+                continue
+            ext = thread["ext"]
 
-        tn_download_url = f"{IMAGE_API_URL}/{required_board}/{tim}{ext}"
-        image_path = f"{IMAGES_DIR}/{tim}{ext}"
+            tn_download_url = f"{IMAGE_API_URL}/{required_board}/{tim}{ext}"
+            image_path = f"{IMAGES_DIR}/{tim}{ext}"
 
-        download_image(tn_download_url, image_path)
+            # Submit the download_image function to the executor and store
+            # future object
+            future = executor.submit(download_image, tn_download_url, image_path)
+            futures.append(future)
+
+        # Wait for all concurrent jobs to complete
+        concurrent.futures.wait(futures)
     
     if required_page == len(json_data):
         # We're on the last page
@@ -130,25 +144,38 @@ def get_thread():
     image_files = glob.glob(IMAGES_DIR+"/*")
     _ = [os.remove(file) for file in image_files]
 
+    # Create ThreadPool with a number of worker threads
+    with concurrent.futures.ThreadPoolExecutor() as executor:
+        futures = []
     # Download images and fix various params
-    for idx,post in enumerate(json_data["posts"]):
-        tim = post.get("tim", None)
-        images = post.get("images", None)
-        if not images:
-            json_data["posts"][idx]["images"] = 0
+        for idx,post in enumerate(json_data["posts"]):
+            com = post.get("com", None)
+            tim = post.get("tim", None)
+            images = post.get("images", None)
+            if com:
+                # Render html within comment to display
+                json_data["posts"][idx]["com"] = Markup(com)
+            if not images:
+                json_data["posts"][idx]["images"] = 0
 
-        if not tim:
-            # Thread doesn't have a thumbnail, skip
-            json_data["posts"][idx]["tim"] = 0
-            continue
+            if not tim:
+                # Thread doesn't have a thumbnail, skip
+                json_data["posts"][idx]["tim"] = 0
+                continue
 
-        ext = post["ext"]
-        
-        tn_download_url = f"{IMAGE_API_URL}/{required_board}/{tim}{ext}"
-        image_path = f"{IMAGES_DIR}/{tim}{ext}"
+            ext = post["ext"]
 
-        download_image(tn_download_url, image_path)
-    
+            tn_download_url = f"{IMAGE_API_URL}/{required_board}/{tim}{ext}"
+            image_path = f"{IMAGES_DIR}/{tim}{ext}"
+
+            # Submit the download_image function to the executor and store
+            # future object
+            future = executor.submit(download_image, tn_download_url, image_path)
+            futures.append(future)
+
+        # Wait for all concurrent jobs to complete
+        concurrent.futures.wait(futures)
+
     # Render page
     return render_template(
         "showthread.html",
@@ -158,7 +185,7 @@ def get_thread():
     )
 
 def is_valid_board(board):
-    valid_boards = [
+    valid_boards = {
 		"a", "c", "w", "m", "cgl",
 		"cm", "cm", "n", "jp", "vt", "v",
 		"vg", "vmg", "vm", "vp", "vr", "vrpg",
@@ -172,7 +199,7 @@ def is_valid_board(board):
 		"pol", "bant", "soc", "s4s", "s", "hc",
 		"hm", "h", "e", "u", "d", "y",
 		"t", "hr", "gif", "aco", "r",
-	]
+    }
 
     return board in valid_boards
 

@@ -1,6 +1,6 @@
 {
-	"name": "GoChan 4Chan reader",
-	"short_name": "GoChan",
+	"name": "PyChan 4Chan reader",
+	"short_name": "PyChan",
 	"start_url": "/index.html",
 	"display": "standalone",
 	"background-color": "#121212",

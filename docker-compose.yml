@@ -1,0 +1,16 @@
+version: '3.6'
+
+services:
+  pychan:
+    image: pychan:latest
+    container_name: pychan
+    ports:
+      - 4433:4433
+    volumes:
+      - imagedir:/app/static/images
+    deploy:
+      restart_policy:
+        condition: any
+
+volumes:
+  imagedir:
