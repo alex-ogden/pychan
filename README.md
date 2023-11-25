@@ -1,5 +1,5 @@
 # pychan
-A self-hosted 4Chan frontend server that makes browsing 4Chan on mobile devices far easier! It still has many features planned and lots of new stuff on the way. I originally wrote this program in Go using the built-in `net/http` library however I've re-written it in Python for ease-of-development. It doesn't appear to have slowed down the program at all, being that the limitations will almost always be your network speed (for downloading images) and your disk read/write (same reason).
+A self-hosted 4Chan frontend server that makes browsing 4Chan on mobile devices far easier! It still has many features planned and lots of new stuff on the way. I originally wrote this program in Go using the built-in `net/http` library however I've re-written it in Python for ease-of-development. The original project can be found here: [gochan](https://github.com/alex-ogden/gochan). It doesn't appear to have slowed down the program at all, being that the limitations will almost always be your network speed (for downloading images) and your disk read/write (same reason).
 
 ### Why?
 PyChan was made to address a few issues I have as a 4Chan user:
