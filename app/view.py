@@ -4,8 +4,14 @@ import json
 import requests
 import concurrent.futures
 
+# Import Flask
+from flask import Markup
+from flask import request
+from flask import render_template
+
+# Import app
 from app import app
-from flask import jsonify, render_template, request, Markup
+
 
 STATIC_DIR = "app/static"
 IMAGES_DIR = STATIC_DIR + "/images"
