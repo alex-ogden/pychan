@@ -19,6 +19,7 @@
   <main>
     <header>
       <h1>4Chan - /{{ required_board }}/ - {{ thread_no }}</h1>
+      <button id="mode-toggle">Toggle Dark/Light Mode</button>
     </header>
     {% for item in posts %}
     <article>
@@ -47,5 +48,6 @@
     {% endfor %}
   </main>
   <script src="../static/thread.js"></script>
+  <script src="../static/mode-switcher.js"></script>
 </body>
 </html>

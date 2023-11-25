@@ -1,10 +1,12 @@
+/* Light mode styles */
+
 /* Set the font family and size for the whole page */
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 body {
     font-family: 'Poppins', sans-serif;
     font-size: 16px;
-    background-color: #1a1a1a;
-    color: #e0e0e0;
+    background-color: #ffffff; /* Light mode background color */
+    color: #1a1a1a; /* Light mode text color */
     margin: 0;
     padding: 0;
 }
@@ -25,7 +27,7 @@ img {
 
 .comment {
     font-weight: normal;
-    color: #e0e0e0;
+    color: #1a1a1a; /* Light mode text color */
 }
 
 /* Style the header elements */
@@ -34,32 +36,32 @@ header h1 {
     margin: 0;
     font-size: 2rem;
     font-weight: bold;
-    color: #e0e0e0;
+    color: #1a1a1a; /* Light mode text color */
 }
 
 h2 {
     margin: 0;
     font-size: 1.5rem;
     font-weight: bold;
-    color: #ff4081;
+    color: #ff4081; /* Light mode text color */
     margin-bottom: 20px;
 }
 
 section {
-    background-color: #292929;
+    background-color: #f5f5f5; /* Light mode section background color */
     padding: 20px;
     margin-bottom: 20px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
 }
 
 a {
-    color: #e0e0e0;
+    color: #1a1a1a; /* Light mode text color */
     text-decoration: none;
     transition: color 0.2s ease-in-out;
 }
 
 a:hover {
-    color: #ff4081;
+    color: #ff4081; /* Light mode link hover color */
 }
 
 .closed {
@@ -73,12 +75,12 @@ a:hover {
 .thread-info,
 .thread-time {
     font-size: 14px;
-    color: #e0e0e0;
+    color: #1a1a1a; /* Light mode text color */
     margin-top: 5px;
 }
 
 .postername {
-    color: #ff4081;
+    color: #ff4081; /* Light mode text color */
 }
 
 footer {
@@ -95,19 +97,35 @@ footer {
     padding-bottom: 50px;
 }
 
-@media only screen and (max-width: 768px) {
-    h1 {
-        font-size: 24px;
-    }
-    h2 {
-        font-size: 20px;
-    }
-    section {
-        font-size: 16px;
-        padding: 15px;
-    }
-    .thread-info,
-    .thread-time {
-        font-size: 12px;
-    }
+/* Dark mode styles */
+body.dark-mode {
+    background-color: #1a1a1a; /* Dark mode background color */
+    color: #e0e0e0; /* Dark mode text color */
+}
+
+.dark-mode header h1,
+.dark-mode h2,
+.dark-mode section,
+.dark-mode .comment,
+.dark-mode .thread-info,
+.dark-mode .thread-time,
+.dark-mode .postername,
+.dark-mode footer,
+.dark-mode .page-nav,
+.dark-mode a {
+    color: #e0e0e0; /* Dark mode text color */
+}
+
+#mode-toggle {
+    padding: 10px 20px;
+    background-color: #ff4081; /* Button background color */
+    color: #fff; /* Button text color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+#mode-toggle:hover {
+    background-color: #d81b60; /* Button hover background color */
 }

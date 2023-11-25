@@ -19,6 +19,7 @@
   <header>
     <h1>4chan - /{{ board_letter }}/</h1>
     <h2>Page: {{ page }}</h2>
+    <button id="mode-toggle">Toggle Dark/Light Mode</button>
   </header>
   <main>
     {% for item in threads %}
@@ -54,5 +55,6 @@
     <p class="page-nav"><a href="/get_boards?board={{ board_letter }}&page={{ next_page }}">Next Page -></a></p>
     {% endif %}
   </footer>
+  <script src="../static/mode-switcher.js"></script>
 </body>
 </html>
