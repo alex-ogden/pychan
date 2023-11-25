@@ -7,7 +7,7 @@ PyChan was made to address a few issues I have as a 4Chan user:
 * If used through a mobile web-browser, 4Chan looks pretty bad. It's a site built with Desktop use in mind. There have been some improvements recently but I still find it cumbersome to use on mobile.
 
 PyChan addresses these issues by building in a mobile-first manner:
-* A nice user interface, buttons and text which is big enough for mobile and a decent colour scheme (dark/light mode switcher is planned, currently it's just dark).
+* A nice user interface, buttons and text which is big enough for mobile and a decent colour scheme (dark/light mode switcher at the top of each page).
 * Ability to add PyChan to your homescreen with PWA capabilities built-in, this means that it acts just like a regular app would once opened from the homescreen (no browser interface, just the app). To do this see the following (wordy) guide:
 
 [How to add a website to home screen on iOS and Android](https://techwiser.com/how-to-add-a-website-to-home-screen-on-ios-and-android/)
