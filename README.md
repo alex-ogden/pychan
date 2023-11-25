@@ -63,6 +63,9 @@ Everything should work correctly, however if something does go wrong, see the lo
 
 ### Known Issues
 
+##### Dark/Light Mode:
+Currently, although the switching of dark to light and back works, your preference is not carried to new threads/boards. If you want light mode, you will have to use the button at the top of the page each time you go to a new page. I'm working on a fix for this.
+
 ##### Thread/Board Images:
 Due to limitations of the 4Chan read-only API, it's not possible to reference images via URL (using `i.4cdn.org`) - this is a CORS issue. If you want to try using a CORS proxy feel free however I've not had much luck so far. Due to this, PyChan needs to pre-download the images to the filesystem before loading a thread/board. This can cause slowdowns on slow connections or in threads with many high-res images however the download process is handled via a python concurrency library so it's about as fast as it can be. It will clear all downloaded images before loading a new thread or board so you shouldn't have a problem with disk usage.
 
