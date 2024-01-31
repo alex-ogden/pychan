@@ -13,12 +13,12 @@
   <link rel="apple-touch-icon" href="../static/icons/icon-192x192.png">
   <meta name="apple-mobile-web-app-status-bar" content="#BB86FC">
   <meta name="theme-color" content="#BB86FC">
-  <title>4chan /{{ required_board }}/ - {{ thread_no }}</title>
+  <title>4chan /{{ board_letter }}/ - {{ thread_no }}</title>
 </head>
 <body>
   <main>
     <header>
-      <h1>4Chan - /{{ required_board }}/ - {{ thread_no }}</h1>
+      <h1>4Chan - /{{ board_letter }}/ - {{ thread_no }}</h1>
       <button id="mode-toggle">Toggle Dark/Light Mode</button>
     </header>
     {% for item in posts %}

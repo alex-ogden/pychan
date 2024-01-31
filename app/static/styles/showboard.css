@@ -5,8 +5,8 @@
 body {
     font-family: 'Poppins', sans-serif;
     font-size: 16px;
-    background-color: #ffffff; /* Light mode background color */
-    color: #1a1a1a; /* Light mode text color */
+    background-color: #ebdbb2; /* Light mode background color */
+    color: #3c3836; /* Light mode text color */
     margin: 0;
     padding: 0;
 }
@@ -27,7 +27,7 @@ img {
 
 .comment {
     font-weight: normal;
-    color: #1a1a1a; /* Light mode text color */
+    color: #3c3836; /* Light mode text color */
 }
 
 /* Style the header elements */
@@ -36,14 +36,14 @@ header h1 {
     margin: 0;
     font-size: 2rem;
     font-weight: bold;
-    color: #1a1a1a; /* Light mode text color */
+    color: #3c3836; /* Light mode text color */
 }
 
 h2 {
     margin: 0;
     font-size: 1.5rem;
     font-weight: bold;
-    color: #ff4081; /* Light mode text color */
+    color: #3c3836; /* Light mode text color */
     margin-bottom: 20px;
 }
 
@@ -55,7 +55,7 @@ section {
 }
 
 a {
-    color: #1a1a1a; /* Light mode text color */
+    color: #3c3836; /* Light mode text color */
     text-decoration: none;
     transition: color 0.2s ease-in-out;
 }
@@ -75,12 +75,12 @@ a:hover {
 .thread-info,
 .thread-time {
     font-size: 14px;
-    color: #1a1a1a; /* Light mode text color */
+    color: #3c3836; /* Light mode text color */
     margin-top: 5px;
 }
 
 .postername {
-    color: #ff4081; /* Light mode text color */
+    color: #3c3836; /* Light mode text color */
 }
 
 footer {
@@ -99,13 +99,12 @@ footer {
 
 /* Dark mode styles */
 body.dark-mode {
-    background-color: #1a1a1a; /* Dark mode background color */
-    color: #e0e0e0; /* Dark mode text color */
+    background-color: #3c3836; /* Dark mode background color */
+    color: #fbf1c7; /* Dark mode text color */
 }
 
 .dark-mode header h1,
 .dark-mode h2,
-.dark-mode section,
 .dark-mode .comment,
 .dark-mode .thread-info,
 .dark-mode .thread-time,
@@ -113,13 +112,18 @@ body.dark-mode {
 .dark-mode footer,
 .dark-mode .page-nav,
 .dark-mode a {
-    color: #e0e0e0; /* Dark mode text color */
+    color: #fbf1c7; /* Dark mode text color */
+}
+
+
+.dark-mode section {
+    background-color: #504945 /* Dark mode section background color */
 }
 
 #mode-toggle {
     padding: 10px 20px;
     background-color: #ff4081; /* Button background color */
-    color: #fff; /* Button text color */
+    color: #fbf1c7; /* Button text color */
     border: none;
     border-radius: 5px;
     cursor: pointer;
