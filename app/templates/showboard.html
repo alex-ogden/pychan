@@ -29,13 +29,15 @@
         <h3 class="postername">{{ item.name }}</h3>
         <p>{{ item.sub }}</p>
       </a>
-      {% if item.tim > 0 %}
-        {% if item.ext == ".webm" %}
-        <video controls loop src="../static/images/{{ item.tim }}{{ item.ext }}" alt="Thread {{ item.no }} thumbnail"></video>
-        {% else %}
-        <img src="../static/images/{{ item.tim }}{{ item.ext }}" id="{{ item.tim }}" alt="Thread {{ item.no }} thumbnail"/>
-        {% endif %}
-      {% endif %}
+			{% if item.tim %}
+				{% if item.tim > 0 %}
+					{% if item.ext == ".webm" %}
+					<video controls loop src="../static/images/{{ item.tim }}{{ item.ext }}" alt="Thread {{ item.no }} thumbnail"></video>
+					{% else %}
+					<img src="../static/images/{{ item.tim }}{{ item.ext }}" id="{{ item.tim }}" alt="Thread {{ item.no }} thumbnail"/>
+					{% endif %}
+				{% endif %}
+			{% endif %}
       <p class="comment">{{ item.com }}</p>
       <p class="thread-info">Replies: {{ item.replies }} / Images: {{ item.images }}</p>
       <p class="thread-time">Time: {{ item.time }}</p>

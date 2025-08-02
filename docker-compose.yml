@@ -1,8 +1,6 @@
-version: '3.6'
-
 services:
   pychan:
-    image: pychan:latest
+    image: pychan:1.0.0
     container_name: pychan
     ports:
       - 4433:4433
