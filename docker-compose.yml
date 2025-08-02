@@ -1,6 +1,6 @@
 services:
   pychan:
-    image: pychan:1.0.0
+    image: pychan:${PYCHAN_VERSION:-latest}
     container_name: pychan
     ports:
       - 4433:4433
